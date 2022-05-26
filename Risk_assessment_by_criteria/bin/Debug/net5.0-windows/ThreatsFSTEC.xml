@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<threats>
+  <threat name="УБИ.043: Угроза нарушения доступности облачного сервера">
+    <weakness>Отсутствие специфичных требований обеспечения доступности для облачных технологий</weakness>
+    <v>0.35</v>
+    <s>3</s>
+    <components>
+      <component>
+        <title>Фронтальный сервер 1</title>
+      </component>
+      <component>
+        <title>Фронтальный сервер 2</title>
+      </component>
+      <component>
+        <title>Виртуальный сервер 1</title>
+      </component>
+      <component>
+        <title>Виртуальный сервер 2</title>
+      </component>
+      <component>
+        <title>Виртуальный сервер 1</title>
+      </component>
+      <component>
+        <title>Виртуальный сервер 2</title>
+      </component>
+    </components>
+  </threat>
+  <threat name="УБИ.054: Угроза недобросовестного исполнения обязательств поставщиками облачных услуг">
+    <weakness>Халатность со стороны сотрудников поставщика облачных услуг, недостаточности должностных и иных инструкций данных сотрудников</weakness>
+    <v>0.25</v>
+    <s>2</s>
+    <components>
+      <component>
+        <title>Дисковый массив (уровень 1)</title>
+      </component>
+      <component>
+        <title>Дисковый массив (уровень 2)</title>
+      </component>
+      <component>
+        <title>Ленточная библиотека</title>
+      </component>
+    </components>
+  </threat>
+  <threat name="УБИ.070: Угроза непрерывной модернизации облачной инфраструктуры">
+    <weakness>Предоставление потребителю возможности выбора и изменения первоначального состава программного обеспечения облачной инфраструктуры</weakness>
+    <v>0.2</v>
+    <s>2</s>
+    <components>
+      <component>
+        <title>Балансировщик нагрузки</title>
+      </component>
+      <component>
+        <title>Коммутатор ядра</title>
+      </component>
+      <component>
+        <title>Коммутатор ядра</title>
+      </component>
+    </components>
+  </threat>
+  <threat name="УБИ.096: Угроза несогласованности политик безопасности элементов облачной инфраструктуры">
+    <weakness>Недостаточность проработки вопроса управления политиками безопасности элементов облачной инфраструктуры вследствие значительной ее распределённости </weakness>
+    <v>0.15</v>
+    <s>3</s>
+    <components>
+      <component>
+        <title>Ср-ва ПОИБ ЕОИ</title>
+      </component>
+    </components>
+  </threat>
+  <threat name="УБИ.142: Угроза приостановки оказания облачных услуг вследствие технических сбоев">
+    <weakness>Слабости процедуры контроля за выполнением технического обслуживания и соблюдением режимов функционирования технических средств облачной информационной системы</weakness>
+    <v>0.15</v>
+    <s>3</s>
+    <components>
+      <component>
+        <title>Коммутатор ядра</title>
+      </component>
+      <component>
+        <title>Коммутатор ядра</title>
+      </component>
+      <component>
+        <title>Коммутатор СХД</title>
+      </component>
+    </components>
+  </threat>
+  <threat name="УБИ.164: Угроза распространения состояния «отказ в обслуживании» в облачной инфраструктуре">
+    <weakness>Возможность распространения негативных последствий от реализации угроз на физическом или виртуальном уровне облачной инфраструктуры на уровни управления и оркестровки</weakness>
+    <v>0.2</v>
+    <s>3</s>
+    <components>
+      <component>
+        <title>Фронтальный сервер 1</title>
+      </component>
+      <component>
+        <title>Фронтальный сервер 2</title>
+      </component>
+    </components>
+  </threat>
+</threats>

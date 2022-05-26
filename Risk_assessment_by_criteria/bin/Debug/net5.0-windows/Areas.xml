@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<areas>
+  <area name="R1.1">
+    <risk>5</risk>
+    <loc>L1</loc>
+    <resp>Другая</resp>
+  </area>
+  <area name="R1.2">
+    <risk>5</risk>
+    <loc>L1</loc>
+    <resp>Другая</resp>
+  </area>
+  <area name="R1.3">
+    <risk>5</risk>
+    <loc>L1</loc>
+    <resp>Другая</resp>
+  </area>
+  <area name="R1.4">
+    <risk>5</risk>
+    <loc>L1</loc>
+    <resp>Другая</resp>
+  </area>
+  <area name="R1.5">
+    <risk>5</risk>
+    <loc>L1</loc>
+    <resp>Приложения + БД</resp>
+  </area>
+  <area name="R1.6">
+    <risk>5</risk>
+    <loc>L1</loc>
+    <resp>Приложения + БД</resp>
+  </area>
+  <area name="R1.7">
+    <risk>5</risk>
+    <loc>L1</loc>
+    <resp>Другая</resp>
+  </area>
+  <area name="R1.8">
+    <risk>5</risk>
+    <loc>L1</loc>
+    <resp>Базы данных</resp>
+  </area>
+</areas>

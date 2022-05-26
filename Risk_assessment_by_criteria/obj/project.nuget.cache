@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "yePG6F9INciYaMcuwhVrAFrQkRa3J4eDZRCgIsgw0AGapsf3vPJSGAW8DZyMciYTDBUbaoYwSNO2oevecL56tg==",
+  "success": true,
+  "projectFilePath": "D:\\my\\GitHub\\Risk_assessment_by_criteria\\Risk_assessment_by_criteria\\Risk_assessment_by_criteria.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\ryzho\\.nuget\\packages\\oxyplot.core\\2.1.0\\oxyplot.core.2.1.0.nupkg.sha512",
+    "C:\\Users\\ryzho\\.nuget\\packages\\oxyplot.windowsforms\\2.1.0\\oxyplot.windowsforms.2.1.0.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Compile Update="CVSS.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="EditArea.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="EditComp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="EditThreat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="NewArea.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="NewComp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="NewThreat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Parameters.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Report.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+</Project>
