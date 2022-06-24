@@ -229,7 +229,7 @@ namespace Risk_assessment_by_criteria
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "NewThreat";
-            this.Text = "Threats";
+            this.Text = "Угроза";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).EndInit();

@@ -60,12 +60,15 @@
   </resheader>
   <assembly alias="System.Private.CoreLib" name="System.Private.CoreLib, Version=5.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e" />
   <data name="riskCritValue" type="System.Single, System.Private.CoreLib">
-    <value>0.17</value>
+    <value>0.1</value>
   </data>
   <data name="infrType" xml:space="preserve">
-    <value>SaaS</value>
+    <value>IaaS</value>
   </data>
   <data name="sourceFile" xml:space="preserve">
-    <value>ThreatsFSTEC.xml</value>
+    <value>ThreatsISO27005.xml</value>
+  </data>
+  <data name="objectName" xml:space="preserve">
+    <value>Облачная инфраструктура "Гознака"</value>
   </data>
 </root>

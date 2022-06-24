@@ -40,8 +40,11 @@ namespace Risk_assessment_by_criteria
             this.radioButtonPaaS = new System.Windows.Forms.RadioButton();
             this.radioButtonSaaS = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.radioButtonCust = new System.Windows.Forms.RadioButton();
             this.radioButtonBank = new System.Windows.Forms.RadioButton();
             this.radioButtonGost = new System.Windows.Forms.RadioButton();
+            this.textBoxName = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.groupBoxType.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -50,7 +53,7 @@ namespace Risk_assessment_by_criteria
             // trackBar1
             // 
             this.trackBar1.LargeChange = 1;
-            this.trackBar1.Location = new System.Drawing.Point(280, 102);
+            this.trackBar1.Location = new System.Drawing.Point(280, 154);
             this.trackBar1.Maximum = 30;
             this.trackBar1.Name = "trackBar1";
             this.trackBar1.Size = new System.Drawing.Size(208, 56);
@@ -60,7 +63,7 @@ namespace Risk_assessment_by_criteria
             // 
             // textBox_rcr
             // 
-            this.textBox_rcr.Location = new System.Drawing.Point(543, 102);
+            this.textBox_rcr.Location = new System.Drawing.Point(543, 154);
             this.textBox_rcr.Name = "textBox_rcr";
             this.textBox_rcr.ReadOnly = true;
             this.textBox_rcr.Size = new System.Drawing.Size(95, 27);
@@ -70,7 +73,7 @@ namespace Risk_assessment_by_criteria
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(48, 102);
+            this.label4.Location = new System.Drawing.Point(48, 154);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(192, 20);
             this.label4.TabIndex = 50;
@@ -78,7 +81,7 @@ namespace Risk_assessment_by_criteria
             // 
             // button_ex
             // 
-            this.button_ex.Location = new System.Drawing.Point(543, 405);
+            this.button_ex.Location = new System.Drawing.Point(543, 484);
             this.button_ex.Name = "button_ex";
             this.button_ex.Size = new System.Drawing.Size(122, 39);
             this.button_ex.TabIndex = 47;
@@ -88,7 +91,7 @@ namespace Risk_assessment_by_criteria
             // 
             // button_save
             // 
-            this.button_save.Location = new System.Drawing.Point(44, 405);
+            this.button_save.Location = new System.Drawing.Point(44, 484);
             this.button_save.Name = "button_save";
             this.button_save.Size = new System.Drawing.Size(122, 39);
             this.button_save.TabIndex = 46;
@@ -111,7 +114,7 @@ namespace Risk_assessment_by_criteria
             this.groupBoxType.Controls.Add(this.radioButtonIaaS);
             this.groupBoxType.Controls.Add(this.radioButtonPaaS);
             this.groupBoxType.Controls.Add(this.radioButtonSaaS);
-            this.groupBoxType.Location = new System.Drawing.Point(44, 164);
+            this.groupBoxType.Location = new System.Drawing.Point(44, 216);
             this.groupBoxType.Name = "groupBoxType";
             this.groupBoxType.Size = new System.Drawing.Size(283, 88);
             this.groupBoxType.TabIndex = 53;
@@ -153,14 +156,25 @@ namespace Risk_assessment_by_criteria
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.radioButtonCust);
             this.groupBox1.Controls.Add(this.radioButtonBank);
             this.groupBox1.Controls.Add(this.radioButtonGost);
-            this.groupBox1.Location = new System.Drawing.Point(48, 270);
+            this.groupBox1.Location = new System.Drawing.Point(48, 322);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(519, 103);
+            this.groupBox1.Size = new System.Drawing.Size(519, 134);
             this.groupBox1.TabIndex = 54;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Источник базы угроз";
+            // 
+            // radioButtonCust
+            // 
+            this.radioButtonCust.AutoSize = true;
+            this.radioButtonCust.Location = new System.Drawing.Point(17, 90);
+            this.radioButtonCust.Name = "radioButtonCust";
+            this.radioButtonCust.Size = new System.Drawing.Size(160, 24);
+            this.radioButtonCust.TabIndex = 2;
+            this.radioButtonCust.Text = "Пользовательский";
+            this.radioButtonCust.UseVisualStyleBackColor = true;
             // 
             // radioButtonBank
             // 
@@ -184,11 +198,29 @@ namespace Risk_assessment_by_criteria
             this.radioButtonGost.Text = "ГОСТ Р ИСО/МЭК 27005";
             this.radioButtonGost.UseVisualStyleBackColor = true;
             // 
+            // textBoxName
+            // 
+            this.textBoxName.Location = new System.Drawing.Point(292, 100);
+            this.textBoxName.Name = "textBoxName";
+            this.textBoxName.Size = new System.Drawing.Size(346, 27);
+            this.textBoxName.TabIndex = 58;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(48, 103);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(192, 20);
+            this.label2.TabIndex = 57;
+            this.label2.Text = "Название объекта оценки";
+            // 
             // Parameters
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(708, 467);
+            this.ClientSize = new System.Drawing.Size(708, 546);
+            this.Controls.Add(this.textBoxName);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBoxType);
             this.Controls.Add(this.trackBar1);
@@ -198,7 +230,7 @@ namespace Risk_assessment_by_criteria
             this.Controls.Add(this.button_save);
             this.Controls.Add(this.label1);
             this.Name = "Parameters";
-            this.Text = "Parametrs";
+            this.Text = "Параметры";
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.groupBoxType.ResumeLayout(false);
             this.groupBoxType.PerformLayout();
@@ -224,5 +256,8 @@ namespace Risk_assessment_by_criteria
         public System.Windows.Forms.GroupBox groupBox1;
         public System.Windows.Forms.RadioButton radioButtonBank;
         public System.Windows.Forms.RadioButton radioButtonGost;
+        public System.Windows.Forms.TextBox textBoxName;
+        private System.Windows.Forms.Label label2;
+        public System.Windows.Forms.RadioButton radioButtonCust;
     }
 }

@@ -181,7 +181,7 @@ namespace Risk_assessment_by_criteria
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "EditArea";
-            this.Text = "AreaEdit";
+            this.Text = "Область";
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

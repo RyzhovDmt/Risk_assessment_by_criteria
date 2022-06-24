@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +16,8 @@ namespace Risk_assessment_by_criteria
         internal static bool isSuccEd = false;
         internal static bool isSuccDel = false;
         public static string infrType;
+        internal static string objectName = "";
+
         public struct comp
         {
             public string title;
@@ -49,17 +50,8 @@ namespace Risk_assessment_by_criteria
                         {
                             //XmlNode thr = xnode.Attributes.GetNamedItem("threats");
                             XmlNode thr = childnode;
-                            foreach (XmlNode xn in thr)
-                            {
-                                // добавляем в список угроз
-                                //c.threats.Add(xn.InnerText);
-                            }
 
                         }
-                        
-                        //component.Threats = childnode.InnerText;
-
-
                         if (childnode.Name == "area")
                             c.area = childnode.InnerText;
 

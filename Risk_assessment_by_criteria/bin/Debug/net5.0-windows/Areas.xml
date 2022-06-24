@@ -40,4 +40,24 @@
     <loc>L1</loc>
     <resp>Базы данных</resp>
   </area>
+  <area name="R2.1">
+    <risk>2</risk>
+    <loc>L2</loc>
+    <resp>Другая</resp>
+  </area>
+  <area name="R2.2">
+    <risk>5</risk>
+    <loc>L2</loc>
+    <resp>Другая</resp>
+  </area>
+  <area name="R2.3">
+    <risk>3</risk>
+    <loc>L2</loc>
+    <resp>Другая</resp>
+  </area>
+  <area name="R3.1">
+    <risk>6</risk>
+    <loc>L3</loc>
+    <resp>Приложения + БД</resp>
+  </area>
 </areas>

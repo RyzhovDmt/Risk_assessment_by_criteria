@@ -160,7 +160,7 @@ namespace Risk_assessment_by_criteria
             this.Controls.Add(this.button_ex);
             this.Controls.Add(this.button_add);
             this.Name = "EditComp";
-            this.Text = "CompEdit";
+            this.Text = "Компонент";
             this.ResumeLayout(false);
             this.PerformLayout();
 

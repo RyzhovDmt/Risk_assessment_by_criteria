@@ -53,7 +53,6 @@ namespace Risk_assessment_by_criteria
             // 
             this.trackBar2.LargeChange = 1;
             this.trackBar2.Location = new System.Drawing.Point(352, 559);
-            this.trackBar2.Maximum = 3;
             this.trackBar2.Minimum = 1;
             this.trackBar2.Name = "trackBar2";
             this.trackBar2.Size = new System.Drawing.Size(208, 56);
@@ -207,7 +206,7 @@ namespace Risk_assessment_by_criteria
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "EditThreat";
-            this.Text = "EditThreat";
+            this.Text = "Угроза";
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

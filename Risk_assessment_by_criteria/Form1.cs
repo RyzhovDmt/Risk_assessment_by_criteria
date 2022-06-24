@@ -8,7 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Resources;
-
+using System.Xml;
+using System.Xml.Linq;
+using System.IO;
 
 namespace Risk_assessment_by_criteria
 {
@@ -41,6 +43,7 @@ namespace Risk_assessment_by_criteria
                 Threat.riskCritValue = (float)resxSet.GetObject("riskCritValue");
                 Component.infrType = resxSet.GetString("infrType");
                 Threat.sourceFile = resxSet.GetString("sourceFile");
+                Component.objectName = resxSet.GetString("objectName");
             }
         }
         public void fillTable1()
@@ -207,9 +210,9 @@ namespace Risk_assessment_by_criteria
                        
                         loc.Value = a.location;
                         //risk calculation
-                        risk.Value = Threat.riskForComponent(t.s, t.v);
+                        risk.Value = Math.Round(Threat.riskForComponent(t.s, t.v), 2);
                         //
-                        risk.Style.BackColor = Threat.defineRiskColor(risk.Value);
+                        risk.Style.BackColor = Threat.defineRiskColor(Threat.riskForComponent(t.s, t.v));
                         DataGridViewRow row0 = new DataGridViewRow();
                         row0.Cells.AddRange(loc, area, th, weak, com, v, s, risk);
                         dataGridView1.Rows.Add(row0);
@@ -615,7 +618,6 @@ namespace Risk_assessment_by_criteria
 
         private void dataGridView3_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            dataGridView3.CurrentRow.Selected = true;
             
             if (dataGridView3.Rows[e.RowIndex].Cells[0].Value != null)
             {
@@ -631,18 +633,19 @@ namespace Risk_assessment_by_criteria
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            dataGridView1.CurrentRow.Selected = true;
+            
 
         }
 
         private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            dataGridView2.CurrentRow.Selected = true;
+
         }
 
         private void параметрыToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Parameters f1 = new Parameters();
+            f1.textBoxName.Text = Component.objectName.ToString();
             f1.textBox_rcr.Text = Threat.riskCritValue.ToString();
             f1.trackBar1.Value = Convert.ToInt32(Threat.riskCritValue*100);
             switch (Component.infrType)
@@ -665,7 +668,9 @@ namespace Risk_assessment_by_criteria
                 case "ThreatsISO27005.xml":
                     f1.radioButtonGost.Checked = true;
                     break;
-
+                case "Custom.xml":
+                    f1.radioButtonCust.Checked = true;
+                    break;
             }
 
             f1.ShowDialog();
@@ -675,6 +680,75 @@ namespace Risk_assessment_by_criteria
         {
             Report f1 = new Report();
             f1.ShowDialog();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //путь
+            string path = Threat.sourceFile;
+            string oldName = "Old" + Threat.sourceFile;
+            DialogResult result = MessageBox.Show("Текущая информация об угрозах будет помещена в файл \""+ oldName, 
+                "Создание нового файла угроз", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+            if (result == DialogResult.OK)
+            {
+                //rename
+                if (System.IO.File.Exists(oldName))
+                    System.IO.File.Delete(oldName);
+                System.IO.File.Move(path, oldName);
+
+                //создание главного объекта документа
+                XmlDocument xmlDoc = new XmlDocument();
+
+                /*<?xml version="1.0" encoding="utf-8" ?> */
+                //создание объявления (декларации) документа
+                XmlDeclaration xmlDec = xmlDoc.CreateXmlDeclaration("1.0", "utf-8", null);
+                //добавляем в документ
+                xmlDoc.AppendChild(xmlDec);
+                /*<database name="abc"></database>*/
+                //создание корневого элемента 
+                XmlElement newEl = xmlDoc.CreateElement("threats");
+
+                //добавляем в документ
+                xmlDoc.AppendChild(newEl);
+                xmlDoc.Save(path);
+            }
+            Threat.readFromFile();
+            fillThreatTable();
+            fillTable();
+
+        }
+
+        private void справкаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Help.ShowHelp(this, "NewProject.chm");
+        }
+
+        private void оПрограммеToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AboutBox1 f1 = new AboutBox1();
+            f1.ShowDialog();
+        }
+
+
+
+        private void openToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog1 = new OpenFileDialog())
+            {
+                openFileDialog1.Filter = "Xml files(*.xml)|*.xml";
+                if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
+                    return;
+                // получаем выбранный файл
+                Threat.sourceFile = Path.GetFileName(openFileDialog1.FileName);
+                Threat.readFromFile();
+            }
+            fillThreatTable();
+            fillTable();
         }
     }
 }

@@ -51,4 +51,19 @@
   <component name="Ленточная библиотека">
     <area>R1.8</area>
   </component>
+  <component name="Маршрутизатор">
+    <area>R2.1</area>
+  </component>
+  <component name="Ср-ва ПОИБ ЕОИ">
+    <area>R2.2</area>
+  </component>
+  <component name="Криптошлюз">
+    <area>R2.3</area>
+  </component>
+  <component name="Коммутатор управления">
+    <area>R3.1</area>
+  </component>
+  <component name="Сервер управления и мониторинга ЕОИ">
+    <area>R3.1</area>
+  </component>
 </components>

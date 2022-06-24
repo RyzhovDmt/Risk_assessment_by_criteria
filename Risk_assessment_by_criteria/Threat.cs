@@ -34,6 +34,7 @@ namespace Risk_assessment_by_criteria
         }
         static public void readFromFile()
         {
+            thrList.Clear();
             //List<string> emp = new List<string>();
             XmlDocument xDoc = new XmlDocument();
             xDoc.Load(Threat.sourceFile);
@@ -100,13 +101,8 @@ namespace Risk_assessment_by_criteria
                 c.v = v;
                 c.s = s;
                 c.components = components;
-                //xRoot.AppendChild(personElem);
-                // сохраняем изменения xml-документа в файл
-                //xDoc.Save("people.xml");
-                // --------------------------------------------------------------------start
                 XDocument xdoc = XDocument.Load(Threat.sourceFile);
                 XElement root = xdoc.Element("threats");
-                //XElement children = new XElement("children");
                 if (root != null)
                 {
                     // добавляем новый элемент
@@ -175,7 +171,6 @@ namespace Risk_assessment_by_criteria
 
 
             XElement root = xdoc.Element("threats");
-            //XElement children = new XElement("children");
 
             // добавляем новый элемент
             root.Add(new XElement("threat",
@@ -199,7 +194,7 @@ namespace Risk_assessment_by_criteria
 
         internal static float riskForComponent(int s, float v)
         {
-            return v * s/3;
+            return v * s/10;
         }
 
     }

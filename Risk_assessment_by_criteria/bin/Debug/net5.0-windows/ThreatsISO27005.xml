@@ -1,92 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <threats>
-  <threat name="Отказ в осуществлении действий">
-    <weakness>Отсутствие подтверждения отправления или получения сообщения</weakness>
-    <v>0.5</v>
-    <s>1</s>
-    <components>
-      <component>
-        <title>Фронтальный сервер 1</title>
-      </component>
-      <component>
-        <title>Фронтальный сервер 2</title>
-      </component>
-    </components>
-  </threat>
-  <threat name="Ошибка в использовании">
-    <weakness>Неправильные параметры установки</weakness>
-    <v>0.25</v>
-    <s>1</s>
-    <components>
-      <component>
-        <title>Балансировщик нагрузки</title>
-      </component>
-    </components>
-  </threat>
-  <threat name="Нарушение функционирования программного обеспечения">
-    <weakness>Недоработанное или новое программное обеспечение</weakness>
-    <v>0.4</v>
-    <s>1</s>
-    <components>
-      <component>
-        <title>Балансировщик нагрузки</title>
-      </component>
-      <component>
-        <title>Балансировщик нагрузки</title>
-      </component>
-    </components>
-  </threat>
-  <threat name="Использование контрафактного или скопированного программного обеспечения">
-    <weakness>Отсутствие процедур, обеспечивающих соблюдение прав на интеллектуальную собственность</weakness>
-    <v>0.2</v>
-    <s>2</s>
-    <components>
-      <component>
-        <title>Балансировщик нагрузки</title>
-      </component>
-      <component>
-        <title>Коммутатор ядра</title>
-      </component>
-      <component>
-        <title>Коммутатор ядра</title>
-      </component>
-      <component>
-        <title>Балансировщик нагрузки</title>
-      </component>
-    </components>
-  </threat>
-  <threat name="Перехват информации">
-    <weakness>Незащищенные линии связи</weakness>
-    <v>0.15</v>
-    <s>2</s>
-    <components>
-      <component>
-        <title>Виртуальный сервер 1</title>
-      </component>
-      <component>
-        <title>Виртуальный сервер 2</title>
-      </component>
-      <component>
-        <title>Виртуальный сервер 1</title>
-      </component>
-      <component>
-        <title>Виртуальный сервер 2</title>
-      </component>
-    </components>
-  </threat>
-  <threat name="Отказ оборудования">
-    <weakness>Отсутствие регулярного техобслуживания</weakness>
-    <v>0.1</v>
-    <s>2</s>
-    <components>
-      <component>
-        <title>Вычислительный блок</title>
-      </component>
-      <component>
-        <title>Вычислительный блок</title>
-      </component>
-    </components>
-  </threat>
   <threat name="Неисправная работа оборудования">
     <weakness>Отсутствие регулярного техобслуживания</weakness>
     <v>0.2</v>
@@ -110,32 +23,6 @@
       </component>
     </components>
   </threat>
-  <threat name="Несанкционированное использование оборудования">
-    <weakness>Уязвимость ПКС коммутаторов</weakness>
-    <v>0.1</v>
-    <s>1</s>
-    <components>
-      <component>
-        <title>Ср-ва ПОИБ ЕОИ</title>
-      </component>
-      <component>
-        <title>Коммутатор СХД</title>
-      </component>
-    </components>
-  </threat>
-  <threat name="Ухудшение состояния носителей данных">
-    <weakness>Неадекватное или небрежное использование физического управления доступом к зданиям и помещениям</weakness>
-    <v>0.2</v>
-    <s>1</s>
-    <components>
-      <component>
-        <title>Дисковый массив (уровень 1)</title>
-      </component>
-      <component>
-        <title>Дисковый массив (уровень 2)</title>
-      </component>
-    </components>
-  </threat>
   <threat name="Хищение носителей данных или документов">
     <weakness>Безнадзорная работа внешнего персонала или персонала организации, занимающегося уборкой</weakness>
     <v>0.1</v>
@@ -149,10 +36,135 @@
       </component>
     </components>
   </threat>
+  <threat name="Отказ оборудования">
+    <weakness>Отсутствие регулярного техобслуживания</weakness>
+    <v>0.1</v>
+    <s>3</s>
+    <components>
+      <component>
+        <title>Вычислительный блок</title>
+      </component>
+      <component>
+        <title>Вычислительный блок</title>
+      </component>
+    </components>
+  </threat>
+  <threat name="Ухудшение состояния носителей данных">
+    <weakness>Неадекватное или небрежное использование физического управления доступом к зданиям и помещениям</weakness>
+    <v>0.2</v>
+    <s>2</s>
+    <components>
+      <component>
+        <title>Дисковый массив (уровень 1)</title>
+      </component>
+      <component>
+        <title>Дисковый массив (уровень 2)</title>
+      </component>
+    </components>
+  </threat>
+  <threat name="Ошибка в использовании">
+    <weakness>Неправильные параметры установки</weakness>
+    <v>0.25</v>
+    <s>2</s>
+    <components>
+      <component>
+        <title>Балансировщик нагрузки</title>
+      </component>
+      <component>
+        <title>Балансировщик нагрузки</title>
+      </component>
+    </components>
+  </threat>
+  <threat name="Несанкционированное использование маршрутизатора">
+    <weakness>Отсутствие регулярных обновлений ПО</weakness>
+    <v>0.25</v>
+    <s>4</s>
+    <components>
+      <component>
+        <title>Маршрутизатор</title>
+      </component>
+    </components>
+  </threat>
+  <threat name="Перехват информации">
+    <weakness>Незащищенные линии связи</weakness>
+    <v>0.15</v>
+    <s>3</s>
+    <components>
+      <component>
+        <title>Виртуальный сервер 1</title>
+      </component>
+      <component>
+        <title>Виртуальный сервер 2</title>
+      </component>
+      <component>
+        <title>Виртуальный сервер 1</title>
+      </component>
+      <component>
+        <title>Виртуальный сервер 2</title>
+      </component>
+      <component>
+        <title>Маршрутизатор</title>
+      </component>
+    </components>
+  </threat>
+  <threat name="Использование контрафактного или скопированного программного обеспечения">
+    <weakness>Отсутствие процедур, обеспечивающих соблюдение прав на интеллектуальную собственность</weakness>
+    <v>0.2</v>
+    <s>8</s>
+    <components>
+      <component>
+        <title>Балансировщик нагрузки</title>
+      </component>
+      <component>
+        <title>Ср-ва ПОИБ ЕОИ</title>
+      </component>
+      <component>
+        <title>Балансировщик нагрузки</title>
+      </component>
+      <component>
+        <title>Ср-ва ПОИБ ЕОИ</title>
+      </component>
+    </components>
+  </threat>
+  <threat name="Нарушение функционирования программного обеспечения">
+    <weakness>Недоработанное или новое программное обеспечение</weakness>
+    <v>0.4</v>
+    <s>4</s>
+    <components>
+      <component>
+        <title>Балансировщик нагрузки</title>
+      </component>
+      <component>
+        <title>Балансировщик нагрузки</title>
+      </component>
+      <component>
+        <title>Криптошлюз</title>
+      </component>
+    </components>
+  </threat>
+  <threat name="Несанкционированное использование оборудования">
+    <weakness>Уязвимость ПКС коммутаторов</weakness>
+    <v>0.1</v>
+    <s>7</s>
+    <components>
+      <component>
+        <title>Коммутатор ядра</title>
+      </component>
+      <component>
+        <title>Коммутатор ядра</title>
+      </component>
+      <component>
+        <title>Коммутатор СХД</title>
+      </component>
+      <component>
+        <title>Коммутатор управления</title>
+      </component>
+    </components>
+  </threat>
   <threat name="Злоупотребление правами">
     <weakness>Незащищенное хранение</weakness>
     <v>0.25</v>
-    <s>2</s>
+    <s>6</s>
     <components>
       <component>
         <title>Виртуальный сервер 1</title>
@@ -174,6 +186,25 @@
       </component>
       <component>
         <title>Ленточная библиотека</title>
+      </component>
+      <component>
+        <title>Сервер управления и мониторинга ЕОИ</title>
+      </component>
+    </components>
+  </threat>
+  <threat name="Отказ в осуществлении действий">
+    <weakness>Отсутствие подтверждения отправления или получения сообщения</weakness>
+    <v>0.5</v>
+    <s>1</s>
+    <components>
+      <component>
+        <title>Фронтальный сервер 1</title>
+      </component>
+      <component>
+        <title>Фронтальный сервер 2</title>
+      </component>
+      <component>
+        <title>Сервер управления и мониторинга ЕОИ</title>
       </component>
     </components>
   </threat>

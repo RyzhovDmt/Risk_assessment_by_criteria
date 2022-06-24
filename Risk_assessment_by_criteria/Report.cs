@@ -1,28 +1,33 @@
-﻿using OxyPlot;
+﻿using Aspose.Pdf;
+using Aspose.Pdf.Text;
+using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Series;
+using OxyPlot.WindowsForms;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Risk_assessment_by_criteria
 {
     public partial class Report : Form
     {
+        float avgLoc = 0;
+        List<float> avgs = new List<float>();
         public Report()
         {
             InitializeComponent();
+            avgLoc = calcAvgs();
             fillTable();
-            drawLocGraph();
+            drawLocGraph(true);
+            drawAreasGraph(Loc.getLocList()[0]);
+            labelName.Text = "Объект: " + Component.objectName.ToString();
         }
  
-        public void drawAreasGraph(string loc)
+        public void drawAreasGraph(string loc, bool saving = false)
         {
             var model = new PlotModel
             {
@@ -33,7 +38,7 @@ namespace Risk_assessment_by_criteria
                 XAxisKey = "Value",
                 YAxisKey = "Category",
                 StrokeThickness = 1,
-                //LabelPlacement = LabelPlacement.Inside,
+                LabelPlacement = LabelPlacement.Inside,
             };
             var categoryAxis = new CategoryAxis { Position = AxisPosition.Bottom, Key = "Category" };
             bool isComponent = false;
@@ -50,7 +55,7 @@ namespace Risk_assessment_by_criteria
                 }
                 if (isComponent)
                 {
-                    barSeries.Items.Add(new BarItem { Value = sum , Color = defineAreaColor(sum , loc) });
+                    barSeries.Items.Add(new BarItem { Value = Math.Round(sum, 2) , Color = defineAreaColor(sum , loc) });
                     categoryAxis.Labels.Add(a.title);
                 }
             }
@@ -59,6 +64,12 @@ namespace Risk_assessment_by_criteria
             var valueAxis = new LinearAxis { Position = AxisPosition.Left, Key = "Value" };
             model.Axes.Add(valueAxis);
             this.plotViewAreas.Model = model;
+            if (saving)
+            {
+                var pngExporter = new PngExporter { Width = 600, Height = 400 };
+                pngExporter.ExportToFile(model, "graph2.jpg");
+            }
+
         }
         public OxyColor defineAreaColor(float riskVal, string loc)
         {
@@ -95,7 +106,7 @@ namespace Risk_assessment_by_criteria
                 return OxyColors.GreenYellow;
             return OxyColors.Blue;
         }
-        public void drawCompGraph(string ar)
+        public void drawCompGraph(string ar, bool saving = false)
         {
             var model = new PlotModel
             {
@@ -123,7 +134,7 @@ namespace Risk_assessment_by_criteria
                 }
                 if (isComponent)
                 {
-                    barSeries.Items.Add(new BarItem { Value = Component.riskForComponentByName(c.title, ar), 
+                    barSeries.Items.Add(new BarItem { Value = Math.Round(Component.riskForComponentByName(c.title, ar), 2), 
                         Color = defineCompColor(Component.riskForComponentByName(c.title, ar)) });
                     categoryAxis.Labels.Add(c.title);
                 }
@@ -133,6 +144,12 @@ namespace Risk_assessment_by_criteria
             var valueAxis = new LinearAxis { Position = AxisPosition.Left, Key = "Value" };
             model.Axes.Add(valueAxis);
             this.plotViewAreas.Model = model;
+            if (saving)
+            {
+                var pngExporter = new PngExporter { Width = 600, Height = 400 };
+                pngExporter.ExportToFile(model, "graph3.jpg");
+            }
+
         }
         public OxyColor defineCompColor(float riskVal)
         {
@@ -144,11 +161,11 @@ namespace Risk_assessment_by_criteria
                 return OxyColors.OrangeRed;
             return OxyColors.Blue;
         }
-        public void drawLocGraph()
+        public void drawLocGraph(bool saving = false)
         {
             var model = new PlotModel
             {
-                Title = "BarSeries",
+                Title = "Локации",
             };
             var barSeries = new BarSeries
             {
@@ -178,7 +195,7 @@ namespace Risk_assessment_by_criteria
 
                 if (isComponent)
                 {
-                    barSeries.Items.Add(new BarItem { Value = sum/ areasInLoc.Count, Color = defineLocColor(sum / areasInLoc.Count) });
+                    barSeries.Items.Add(new BarItem { Value = Math.Round(sum/ areasInLoc.Count, 2), Color = defineLocColor(sum / areasInLoc.Count, avgLoc) });
                     categoryAxis.Labels.Add(l);
                      
                 } 
@@ -190,11 +207,21 @@ namespace Risk_assessment_by_criteria
             model.Axes.Add(valueAxis);
 
             this.plotViewLoc.Model = model;
+
+            //
+            if (saving)
+            {
+                var pngExporter = new PngExporter { Width = 600, Height = 400 };
+                pngExporter.ExportToFile(model, "graph.jpg");
+            }
+
+
         }
-        public OxyColor defineLocColor(float riskVal)
+
+        public float calcAvgs()
         {
-            float avg = 0;
-            List <float> loc = new List<float>();
+            float avg = 0, max = 0;
+            List<float> loc = new List<float>();
             foreach (var l in Loc.getLocList())
             {
                 bool isComponent = false;
@@ -215,8 +242,38 @@ namespace Risk_assessment_by_criteria
                 {
                     loc.Add(sum / areasInLoc.Count);
                 }
+                if (sum / areasInLoc.Count >= loc.Max())
+                {
+                    labelLoc.Text = "Локация: " + l + " (" + Math.Round(sum / areasInLoc.Count, 2) + ")";
+                    Dictionary<string, float> areaRisks = new Dictionary<string, float>();
+                    foreach (var a in areasInLoc)
+                    {
+                        areaRisks.Add(a.title, Area.riskForArea(a.title));
+                    }
+
+                    string maxArea = areaRisks.FirstOrDefault(x => x.Value == areaRisks.Values.Max()).Key;
+                    labelArea.Text = "Область: " + maxArea + " (" + Math.Round(areaRisks[maxArea], 2) + ")";
+                    foreach (var c in Component.getCompList().FindAll(x => x.area == maxArea))
+                    {
+                        if (Component.riskForComponentByName(c.title, maxArea) > max)
+                        {
+                            max = Component.riskForComponentByName(c.title, maxArea);
+                            labelComp.Text = "Компонент: " + c.title + " (" + Math.Round(max, 2) + ")";
+                        }
+
+                    }
+
+                }
             }
             avg = loc.Average();
+
+            labelRisk.Text = "Уровень риска системы: " + Math.Round(avg, 2).ToString();
+            return avg;
+        }
+
+        public OxyColor defineLocColor(float riskVal, float avg)
+        {
+
             if (riskVal >= 0.85 * avg && riskVal <= 1.15 * avg)
                 return OxyColors.Yellow;
             if (riskVal > 1.15 * avg && riskVal <= 1.3 * avg)
@@ -264,7 +321,7 @@ namespace Risk_assessment_by_criteria
                 if (double.IsNaN(Area.riskForArea(t.title)))
                     risk.Value = "Компоненты отсутствуют";
                 else
-                    risk.Value = Area.riskForArea(t.title);
+                    risk.Value = Math.Round(Area.riskForArea(t.title), 2);
 
                 //risk.Style.BackColor = Threat.defineRiskColor(risk.Value);
                 DataGridViewRow row0 = new DataGridViewRow();
@@ -292,6 +349,171 @@ namespace Risk_assessment_by_criteria
         private void button_ex_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void buttonSave_Click(object sender, EventArgs e)
+        {
+
+            Document doc = new Document();
+            // Add page to pages collection of Document instance
+            Page page = doc.Pages.Add();
+            // Re-initialize TextFragment object with different contents
+            TextFragment text = new TextFragment("Отчет \n\nпо оценке рисков информационной безопасности " +
+                "на основе критериев существующих стандартов\n\n");
+            // Set TextFragment as inline paragraph
+            text.TextState.FontStyle = FontStyles.Bold;
+            text.TextState.FontSize = 15;
+            text.HorizontalAlignment = Aspose.Pdf.HorizontalAlignment.Center;
+            // Add newly created TextFragment to paragraphs collection of page
+            page.Paragraphs.Add(text);
+
+            // Create TextFragmnet
+            text = new TextFragment(
+                "Объект оценки:  " + Component.objectName + "\n\n" +
+                "Тип облачной инфраструктуры: " + Component.infrType + "\n\n" +
+                "На основании угроз из " + Threat.sourceFile + "\n\n" +
+                "Уровень принятия риска: " + Threat.riskCritValue + "\n\n" );
+            // Add text fragment to paragraphs collection of Page object
+            page.Paragraphs.Add(text);
+
+           
+            text = new TextFragment("Диаграмма показателей риска локалий: \n");
+            text.HorizontalAlignment = Aspose.Pdf.HorizontalAlignment.Center;
+            page.Paragraphs.Add(text);
+            
+            // Create an image instance
+            Aspose.Pdf.Image image = new Aspose.Pdf.Image();
+            // Set image as inline paragraph so that it appears right after
+            // The previous paragraph object (TextFragment)
+
+            // Specify image file path
+            image.File = "graph.jpg";
+            // Set image Height (optional)
+            image.FixHeight = 250;
+            // Set Image Width (optional)
+            image.FixWidth = 400;
+            // Add image to paragraphs collection of page object
+            page.Paragraphs.Add(image);
+
+
+            // Re-initialize TextFragment object with different contents
+            text = new TextFragment("\n");
+            // Set TextFragment as inline paragraph
+            text = new TextFragment("\nТаблица рисков областей\n");
+            // Add newly created TextFragment to paragraphs collection of page
+            page.Paragraphs.Add(text);
+
+
+            // Initializes a new instance of the Table
+            Aspose.Pdf.Table table = new Aspose.Pdf.Table();
+            // Set the table border color as LightGray
+            //table.HorizontalAlignment = Aspose.Pdf.HorizontalAlignment.Center;
+            table.Border = new Aspose.Pdf.BorderInfo(Aspose.Pdf.BorderSide.All, .5f, Aspose.Pdf.Color.FromRgb(System.Drawing.Color.LightGray));
+            // Set the border for table cells
+
+            table.DefaultCellBorder = new Aspose.Pdf.BorderInfo(Aspose.Pdf.BorderSide.All, .5f, Aspose.Pdf.Color.FromRgb(System.Drawing.Color.LightGray));
+            Aspose.Pdf.Row row1 = table.Rows.Add();
+            row1.Cells.Add("Локация");
+            row1.Cells.Add("Область");
+            row1.Cells.Add("Риск");
+            foreach (var t in Area.getArList())
+            {
+                // Add row to table
+                Aspose.Pdf.Row row = table.Rows.Add();
+                // Add table cells
+                row.Cells.Add(t.location);
+                row.Cells.Add(t.title);
+                row.Cells.Add(Math.Round(Area.riskForArea(t.title), 2).ToString());
+            }
+
+            // Add table object to first page of input document
+            doc.Pages[1].Paragraphs.Add(table);
+
+            text = new TextFragment(
+
+                "\n\nЭлементы с наибольшем уровнем риска: " + "\n\n" +
+                labelLoc.Text + "\n\n" +
+                labelArea.Text + "\n\n" +
+                labelComp.Text + "\n\n");
+            page.Paragraphs.Add(text);
+
+
+            // Create an image instance
+            image = new Aspose.Pdf.Image();
+            // Set image as inline paragraph so that it appears right after
+            // The previous paragraph object (TextFragment)
+            string[] words = labelLoc.Text.Split();
+            drawAreasGraph(words[1], true);
+            // Specify image file path
+            image.File = "graph2.jpg";
+            // Set image Height (optional)
+            image.FixHeight = 250;
+            // Set Image Width (optional)
+            image.FixWidth = 400;
+            // Add image to paragraphs collection of page object
+            page.Paragraphs.Add(image);
+
+
+            text = new TextFragment("\n\n");
+            page.Paragraphs.Add(text);
+
+
+            image = new Aspose.Pdf.Image();
+            words = labelArea.Text.Split();
+            drawCompGraph(words[1], true);
+            // Specify image file path
+            image.File = "graph3.jpg";
+            // Set image Height (optional)
+            image.FixHeight = 250;
+            // Set Image Width (optional)
+            image.FixWidth = 400;
+            // Add image to paragraphs collection of page object
+            page.Paragraphs.Add(image);
+
+
+            string title = "Отчет " + DateTime.Now.ToString("dd_MM_yyyy_HH_mm") + ".pdf";
+            // Save updated document containing table object
+            doc.Save(title);
+
+            var p = new Process();
+            p.StartInfo = new ProcessStartInfo(title)
+            {
+                UseShellExecute = true
+            };
+            p.Start();
+
+            FileInfo fileInf = new FileInfo("graph.jpg");
+            if (fileInf.Exists)
+                fileInf.Delete();
+            fileInf = new FileInfo("graph2.jpg");
+            if (fileInf.Exists)
+                fileInf.Delete();
+            fileInf = new FileInfo("graph3.jpg");
+            if (fileInf.Exists)
+                fileInf.Delete();
+
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
+            linkLabel1.LinkVisited = true;
+            //Call the Process.Start method to open the default browser
+            //with a URL:
+            Process.Start(new ProcessStartInfo("https://elibrary.ru/item.asp?id=44611230") { UseShellExecute = true });
+
+        }
+
+        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            linkLabel2.LinkVisited = true;
+            Process.Start(new ProcessStartInfo("https://www.itweek.ru/infrastructure/jet/6/3/") { UseShellExecute = true });
+        }
+
+        private void linkLabel3_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            linkLabel3.LinkVisited = true;
+            Process.Start(new ProcessStartInfo("https://www.itweek.ru/security/article/detail.php?ID=208589") { UseShellExecute = true });
         }
     }
 }

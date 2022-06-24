@@ -95,10 +95,10 @@ namespace Risk_assessment_by_criteria
                 foreach (var c in areaComp)
                 {
                     if (t.components.Contains(c.title))
-                        if ((t.s * t.v) / 3 > Threat.riskCritValue)
+                        if ((t.s * t.v) / 10 > Threat.riskCritValue)
                         {
                             compCnt++;
-                            sum += ((t.s * t.v) / 3) * calcRiskCr(title);
+                            sum += ((t.s * t.v) / 10) * calcRiskCr(title) / 10;
                         }
                 }
                 if (double.IsNaN(compCnt))
@@ -134,21 +134,7 @@ namespace Risk_assessment_by_criteria
             return area.riskCr;
         }
 
-        internal static Dictionary<string, float> riskForAllAreas(string title)
-        {
-            foreach (var t in Threat.getThrList())
-            {
-                foreach (var x in t.components)
-                {
-                    var c = Component.getCompList();
-                    var currComp = c.Find((p => p.title == x));
-                    var currArea = Area.getArList().Find((p => p.title == currComp.area));
-                    //if ((t.s * t.v)/3 > Threat.riskCritValue)
 
-                }
-            }
-            return null;
-        }
 
         public static bool addToFile(string name, float k, string loc, string resp)
         {
